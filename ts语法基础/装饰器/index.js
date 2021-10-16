@@ -134,10 +134,10 @@ os.getData();
 */
 console.log('---------- 3.方法装饰器---------');
 function httpDirector(param) {
-    return function (target, methodName, desc) {
+    return function (target, methodName, descriptor) {
         console.log(target); // 对于静态成员来说是类的构造函数，对于实例成员是类的原型对象。
         console.log(methodName); // 成员的名字
-        console.log(desc); // 成员的属性描述符 desc.value 是方法的具体内容
+        console.log(descriptor); // 成员的属性描述符 descriptor.value 是方法的具体内容
         // --1--可扩展类的属性
         target.name = '张三';
         // --2--可扩展类的方法
@@ -145,8 +145,8 @@ function httpDirector(param) {
             console.log('run');
         };
         // --3--下面 "修改" 传过来的方法,将参数全部转为string后再传给原来的方法
-        var oldMethod = desc.value;
-        desc.value = function () {
+        var oldMethod = descriptor.value;
+        descriptor.value = function () {
             var args = [];
             for (var _i = 0; _i < arguments.length; _i++) {
                 args[_i] = arguments[_i];
@@ -183,23 +183,6 @@ console.log(ou.name);
 ou.run();
 // 修改方法
 ou.getData(123, 'ssss');
-function aaDirector(param) {
-    return function (target, methodName, desc) {
-        console.log(target); // 对于静态成员来说是类的构造函数，对于实例成员是类的原型对象。
-        console.log(methodName); // 成员的名字
-        console.log(desc); // 成员的属性描述符 desc.value 是方法的具体内容
-        // // --3--下面 "修改" 传过来的方法,将参数全部转为string后再传给原来的方法
-        // let oldMethod = desc.value
-        // desc.value = function(...args:any[]){
-        //     console.log(this,args,'这是装饰器里面的内容')
-        //     let vals = args.map(item=>{
-        //         return String(item)
-        //     })
-        //     // 修改参数后再执行原来的逻辑
-        //     oldMethod.apply(this,args) // 必须更改this指向
-        // }
-    };
-}
 /*
 4.方法参数装饰器 --- 这个不常用
    参数装饰器表达式会在运行时当作函数被调用，可以使用参数装饰器为类的原型增加一些元素数据，传入下列3个参数：
@@ -234,4 +217,4 @@ ag.getData(12, '啦啦啦');
 5.装饰器执行顺序
  // 属性 > 方法 > 方法参数 > 类
  // 如果有多个同样的装饰器，它会先执行后面的
-*/ 
+*/

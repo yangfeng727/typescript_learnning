@@ -86,3 +86,36 @@ abstract只能放在抽象类里面
 
 
 ```
+
+## 泛型使用例子
+``` typescript
+
+function test<T ,U>(arg1:T,arg2:U):T & U{ // 交叉类型，将多个类型合并为一个类型
+let result = <T & U>{}
+
+for(let id in arg1){
+    (<T>result)[id] = (<T>arg1)[id] // 注意给result[id] 赋值时是这样定义的  (<T>result)[id]
+}
+
+for(let id in arg2){
+    (<U>result)[id] = (<U>arg2)[id]
+}
+
+return result
+}
+
+let obj = test({a:'1'},{b:'22'})
+console.log(obj,5555) // {a:'1',b:'22'}
+
+```
+
+## 确定分配断言:ts2.7+版本不初始化会报错“初始化表达式，且未在构造函数中明确赋值”
+```typescript
+
+// 解决方案：声明的时候使用!
+class myClass<T>{
+    // 在声明一个变量之后必须用！给他进行赋值操作。
+    defaultName!: T; // 不用!会报错，ts2.7+版本都需要对属性进行 ”确定分配断言“
+    add!:(x: T, y: T)=>T
+}
+```
