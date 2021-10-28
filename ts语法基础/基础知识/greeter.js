@@ -1,6 +1,29 @@
 "use strict";
-// import myModule from './src/lib/myModule'
-// console.log(`姓名:${myModule.name} 年龄:${myModule.age} 性别:${myModule.sex}`)
+var __importDefault = (this && this.__importDefault) || function (mod) {
+    return (mod && mod.__esModule) ? mod : { "default": mod };
+};
+Object.defineProperty(exports, "__esModule", { value: true });
+// 1. es6直接写ts里面
+var test_1 = __importDefault(require("./src/lib/test"));
+console.log("\u59D3\u540D:" + test_1.default.name + " \u5E74\u9F84:" + test_1.default.age + " \u6027\u522B:" + test_1.default.sex);
+// 2.第三方包js文件写声明文件
+var myModule_1 = __importDefault(require("./src/lib/myModule"));
+// let ob = myModule as any
+console.log("\u59D3\u540D:" + myModule_1.default.name + " \u5E74\u9F84:" + myModule_1.default.age + " \u6027\u522B:" + myModule_1.default.sex);
+// import moduleLib from './src/lib/myModule.js';
+// moduleLib.doSomething();
+// 声明文件 
+// --------------------- statement.d.ts相关 start ---------------------
+// import './src/types/statement' // 应该可以不引入的
+// /// <reference types="./src/types/statement" /> // ??? 没效果
+// const run:Teacher<StudentSM> = {
+//     name:'harry',
+//     age:20
+// }
+// 声明的全局对象赋值
+// MyPoint.x = 11
+// MyPoint.y = 22
+// --------------------- statement.d.ts相关 end ---------------------
 var Student = /** @class */ (function () {
     // 在构造函数的参数上使用public等同于创建了同名的成员变量，如：this.firstName,this.middleInitial,this.lastName
     function Student(firstName, middleInitial, lastName) {
@@ -15,7 +38,7 @@ var greeter = function (person) {
     return "Hello, " + person.firstName + " " + person.lastName;
 };
 var user = new Student("Jane", "M.", "User");
-document.body.innerHTML = greeter(user);
+typeof window !== 'undefined' && (document.body.innerHTML = greeter(user)); // 浏览器环境才这样执行
 // 一、基础类型
 var a1 = true;
 var a2 = '字符串';

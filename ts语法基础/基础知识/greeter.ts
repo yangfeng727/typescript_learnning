@@ -1,5 +1,32 @@
-// import myModule from './src/lib/myModule'
-// console.log(`姓名:${myModule.name} 年龄:${myModule.age} 性别:${myModule.sex}`)
+// 1. es6直接写ts里面
+import testModule from './src/lib/test'
+console.log(`姓名:${testModule.name} 年龄:${testModule.age} 性别:${testModule.sex}`)
+
+// 2.第三方包js文件写声明文件
+import myModule from './src/lib/myModule'
+// let ob = myModule as any
+console.log(`姓名:${myModule.name} 年龄:${myModule.age} 性别:${myModule.sex}`)
+
+// import moduleLib from './src/lib/myModule.js';
+// moduleLib.doSomething();
+
+// 声明文件 
+
+// --------------------- statement.d.ts相关 start ---------------------
+// import './src/types/statement' // 应该可以不引入的
+
+// /// <reference types="./src/types/statement" /> // ??? 没效果
+// const run:Teacher<StudentSM> = {
+//     name:'harry',
+//     age:20
+// }
+
+
+// 声明的全局对象赋值
+// MyPoint.x = 11
+// MyPoint.y = 22
+// --------------------- statement.d.ts相关 end ---------------------
+
 
 class Student {
     fullName: string;
@@ -21,7 +48,7 @@ let greeter = (person: Person) => {
 
 let user = new Student("Jane", "M.", "User");
 
-document.body.innerHTML = greeter(user);
+typeof window !== 'undefined' && (document.body.innerHTML = greeter(user)); // 浏览器环境才这样执行
 
 // 一、基础类型
 

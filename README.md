@@ -44,13 +44,13 @@ abstract只能放在抽象类里面
 
 // 2.重写-即覆盖
    // 重写是子类对父类的允许访问的方法的实现过程进行重新编写, 返回值和形参都不能改变。即外壳不变，核心重写！
-   clas animal{
+   class animal{
        eat(str:string){
            console.log('这是父类方法',str)
        }
    }
 
-    clas person extends animal{
+    class person extends animal{
        eat(str:string){ // 子类重写父类方法，【注意：方法名和参数相同】
            console.log('这是子类重写父类方法',str)
        }
@@ -109,7 +109,7 @@ console.log(obj,5555) // {a:'1',b:'22'}
 
 ```
 
-## 确定分配断言:ts2.7+版本不初始化会报错“初始化表达式，且未在构造函数中明确赋值”
+## 确定分配断言:ts2.7+版本不初始化会报错 “初始化表达式，且未在构造函数中明确赋值”
 ```typescript
 
 // 解决方案：声明的时候使用!

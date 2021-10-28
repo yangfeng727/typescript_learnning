@@ -118,6 +118,16 @@ interface useObj {
 var uobj: useObj = { name: '1', age: '2' }
 console.log('对象约束-可索引接口（不常用）', uobj['name'])
 
+// 定义函数接口
+interface SomeInterface {
+    (arg1: string, arg2: string): boolean;
+}
+let someFunc: SomeInterface = function (arg1: string, arg2: string) {
+    const res = arg1.search(arg2)
+    return res > -1;
+}
+console.log(someFunc('weast', 'east'));
+
 
 // 3.类类型接口-和抽象类类似-(重点：常用)
 interface AnimalInterface {
@@ -247,11 +257,9 @@ interface configFn2<T>{
 //     return val1
 // }
 
-function getVal<T>(val:T):T{
+var myGetVal:configFn2<String> = <T>(val:T):T=>{
     return val
 }
-
-var myGetVal:configFn2<String> = getVal
 
 console.log('定义函数泛型接口另外一种方式',myGetVal('dd'))
 
@@ -401,3 +409,25 @@ class Mssql<T> implements DBI<T>{
 }
 
 // 下面使用方式同上
+
+// 6.1泛型约束
+interface IhasLength{ // 约束了必须有length属性
+  length:number
+}
+function fxLength<T extends IhasLength>(val:T):number{ // 定义了一个泛型函数必须有length属性
+    return val.length
+}
+fxLength([1,2,3])
+
+// 6.2多个类型参数之间也可以互相约束：
+function copyFields<T extends U, U>(target: T, source: U): T {
+    for (let id in source) {
+        target[id] = (<T>source)[id];
+    }
+    return target;
+}
+
+let x = { a: 1, b: 2, c: 3, d: 4 };
+
+copyFields(x, { b: 10, d: 20 });
+// 上例中，我们使用了两个类型参数，其中要求 T 继承 U，这样就保证了 U 上不会出现 T 中不存在的字段。
