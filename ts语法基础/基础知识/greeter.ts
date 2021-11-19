@@ -137,3 +137,14 @@ let defineObj: myObj = {
     }
 }
 defineObj.sayName()
+
+
+// 使用&符号合并多个对象
+type options = {name:string} & {url?:string}
+
+let a:options = {
+    name:'111',
+    // url:'www.baidu.com'
+}
+
+console.log(a)

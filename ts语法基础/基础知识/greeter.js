@@ -102,3 +102,8 @@ var defineObj = {
     }
 };
 defineObj.sayName();
+var a = {
+    name: '111',
+    // url:'www.baidu.com'
+};
+console.log(a);
