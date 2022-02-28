@@ -139,7 +139,7 @@ let defineObj: myObj = {
 defineObj.sayName()
 
 
-// 使用&符号合并多个对象
+// 使用&符号合并多个对象属性
 type options = {name:string} & {url?:string}
 
 let a:options = {
@@ -148,3 +148,75 @@ let a:options = {
 }
 
 console.log(a)
+
+
+
+// Partial 将每个属性都变为可选，Omit 排除某个属性
+type user = {
+    id:number,
+    name:string,
+    age:number
+}
+
+type T=(Partial<Omit<user,'id'>>)
+
+let addd:T={
+}
+
+let obj={
+    create(attrs:(Partial<Omit<user,'id'>>)&{id:number}){
+
+    }
+}
+
+
+// 练习ts语法
+
+interface IUser{
+    age:number;
+    name:string;
+}
+
+interface IfAddPerson<T extends Object>{
+    (arg:T):boolean;
+}
+
+let persons = []
+let addPerson:IfAddPerson<IUser> = function(user){
+    persons.push(user)
+    return true
+}
+
+
+interface Iobj{
+    [index:string]:any
+}
+// 将obj2的合并到obj1中
+let fn = function(obj1:Iobj,obj2:Iobj){
+    let copyObj = JSON.parse(JSON.stringify(obj1))
+    for(let x in obj2){
+        copyObj[x] = obj2[x]
+    }
+    return copyObj
+}
+
+
+fn({a:'1',b:'2'},{b:'333',c:'444'})
+
+
+class Ab{
+    name!:string;
+}
+class Abc{
+    age!:string;
+}
+
+// ts和java一样，同时只能继承一个类
+// class cChild extends Ab,Abc{ // 报错
+
+// }
+
+// 类可以实现多个接口
+// class cChild implements IUser,Point{ // 报错
+
+// }

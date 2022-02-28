@@ -15,13 +15,15 @@ var __extends = (this && this.__extends) || (function () {
     };
 })();
 function getinfo(name, age) {
-    if (typeof name === 'string') {
+    if (typeof age === 'number') {
         return "\u6211\u662F\uFF1A" + name + " \u5E74\u9F84\u662F\uFF1A" + age;
     }
     else {
         return "\u6211\u662F\uFF1A" + name;
     }
 }
+getinfo('abc');
+getinfo('abc', 123);
 // ts中的类
 var person = /** @class */ (function () {
     function person(n) {
@@ -45,6 +47,40 @@ var Web = /** @class */ (function (_super) {
 var c_persion = new Web('张三');
 console.log(c_persion.run());
 console.log(c_persion.work());
+// 定义父类
+var Parent = /** @class */ (function () {
+    function Parent() {
+        this.name = "parent";
+        this.colors = ["red", "blue", "yellow"];
+    }
+    Parent.prototype.sayFather = function () {
+        console.log("来自父类的呐喊");
+    };
+    Parent.proArr = [1, 2, 3]; // 要多个子类实例共享部分数据可以使用 static
+    return Parent;
+}());
+// 定义子类
+var Child = /** @class */ (function (_super) {
+    __extends(Child, _super);
+    function Child() {
+        var _this = _super.call(this) || this;
+        _this.type = "child"; // 扩展父类属性
+        return _this;
+    }
+    Child.prototype.sayChild = function () {
+        console.log("来自子类的呐喊");
+    };
+    return Child;
+}(Parent));
+// 调用：
+var c1 = new Child();
+var c2 = new Child();
+c1.name = '更改值类型属性';
+c1.colors.push('green');
+Parent.proArr.push(999);
+console.log('Parent.proArr:', Parent.proArr);
+console.log('---c1:', c1, '---c1.name:', c1.name, '---c1.colors:', c1.colors);
+console.log('---c2:', c2, '---c2.name:', c2.name, '---c2.colors:', c2.colors);
 // 
 /*
 类的概念---ts语法和其他面向对象语法，如java等通用概念
@@ -111,6 +147,11 @@ var arr = ['111', '2222'];
 console.log('数组约束-可索引接口（不常用）', arr[0]);
 var uobj = { name: '1', age: '2' };
 console.log('对象约束-可索引接口（不常用）', uobj['name']);
+var someFunc = function (arg1, arg2) {
+    var res = arg1.search(arg2);
+    return res > -1;
+};
+console.log(someFunc('weast', 'east'));
 var iDog = /** @class */ (function () {
     function iDog(n) {
         this.name = n;
@@ -200,10 +241,9 @@ console.log('定义函数泛型接口', interface_tFn(1, 2));
 // let interface_tFn22:configFn2<string>= (val1:string):string=>{
 //     return val1
 // }
-function getVal(val) {
+var myGetVal = function (val) {
     return val;
-}
-var myGetVal = getVal;
+};
 console.log('定义函数泛型接口另外一种方式', myGetVal('dd'));
 // 4.泛型-把 “类作为参数类型” 的泛型类,去除重复代码 --- 重要
 // ------ 重要例子：操作数据库的泛型类 start ------
@@ -302,4 +342,17 @@ var Mssql = /** @class */ (function () {
     };
     return Mssql;
 }());
-// 下面使用方式同上
+function fxLength(val) {
+    return val.length;
+}
+fxLength([1, 2, 3]);
+// 6.2多个类型参数之间也可以互相约束：
+function copyFields(target, source) {
+    for (var id in source) {
+        target[id] = source[id];
+    }
+    return target;
+}
+var x = { a: 1, b: 2, c: 3, d: 4 };
+copyFields(x, { b: 10, d: 20 });
+// 上例中，我们使用了两个类型参数，其中要求 T 继承 U，注意：T extends U意思是T包含U 这样就保证了 U 上不会出现 T 中不存在的字段。

@@ -4,12 +4,14 @@
 function getinfo(name: string): string;
 function getinfo(name: string, age: number): string;
 function getinfo(name: any, age?: any): any {
-    if (typeof name === 'string') {
+    if (typeof age === 'number') {
         return `我是：${name} 年龄是：${age}`
     } else {
         return `我是：${name}`
     }
 }
+getinfo('abc')
+getinfo('abc',123)
 
 
 // ts中的类
@@ -36,6 +38,48 @@ class Web extends person {
 let c_persion = new Web('张三')
 console.log(c_persion.run())
 console.log(c_persion.work())
+
+
+
+  // 定义父类
+  class Parent{
+    name:string;
+    colors:Array<string>;
+    static proArr:Array<number> = [1,2,3] // 要多个子类实例共享部分数据可以使用 static
+    constructor(){
+        this.name = "parent";
+        this.colors = ["red", "blue", "yellow"];
+    }
+
+    sayFather():void{
+        console.log("来自父类的呐喊")
+    }
+}
+
+// 定义子类
+class Child extends Parent { // 继承父类且扩展
+    type:string;
+    constructor(){
+        super();
+        this.type = "child"; // 扩展父类属性
+    }
+
+    sayChild():void {
+        console.log("来自子类的呐喊")
+    }
+}
+// 调用：
+let c1 = new Child()
+let c2 = new Child()
+c1.name = '更改值类型属性'
+c1.colors.push('green')
+Parent.proArr.push(999)
+console.log('Parent.proArr:',Parent.proArr)
+// console.log('不知道父类的时候可根据原型链找父类:',c2.__proto__.__proto__.constructor.proArr)
+
+console.log('---c1:', c1,'---c1.name:',c1.name,'---c1.colors:',c1.colors)
+console.log('---c2:', c2,'---c2.name:',c2.name,'---c2.colors:',c2.colors)
+
 // 
 /*
 类的概念---ts语法和其他面向对象语法，如java等通用概念
@@ -91,6 +135,7 @@ class cat extends Animal {
         return `${this.name}爱吃鱼`
     }
 }
+
 
 let d = new dog('小狗')
 console.log(d.eat())
@@ -430,4 +475,4 @@ function copyFields<T extends U, U>(target: T, source: U): T {
 let x = { a: 1, b: 2, c: 3, d: 4 };
 
 copyFields(x, { b: 10, d: 20 });
-// 上例中，我们使用了两个类型参数，其中要求 T 继承 U，这样就保证了 U 上不会出现 T 中不存在的字段。
+// 上例中，我们使用了两个类型参数，其中要求 T 继承 U，注意：T extends U意思是T包含U 这样就保证了 U 上不会出现 T 中不存在的字段。
