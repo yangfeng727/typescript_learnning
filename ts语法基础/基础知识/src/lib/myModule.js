@@ -14,10 +14,10 @@
 let name = '张三'
 let age = 12
 let sex = '男'
-// export { // 需要babel编译了才能在node中运行
+// export default{ // 需要babel编译了才能在node中运行
 //     name,
 //     age,
-//     sex
+//     sex 
 // }
 
 module.exports = { // 需要将es6语法 export default 改为commonjs导出 才能在node环境直接运行

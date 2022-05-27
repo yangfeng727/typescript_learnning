@@ -6,6 +6,8 @@ Object.defineProperty(exports, "__esModule", { value: true });
 // 1. es6直接写ts里面
 var test_1 = __importDefault(require("./src/lib/test"));
 console.log("\u59D3\u540D:" + test_1.default.name + " \u5E74\u9F84:" + test_1.default.age + " \u6027\u522B:" + test_1.default.sex);
+test_1.default.myFN('引入第三方包并自定义声明文件');
+debugger;
 // 2.第三方包js文件写声明文件
 var myModule_1 = __importDefault(require("./src/lib/myModule"));
 // let ob = myModule as any
@@ -47,6 +49,7 @@ var a3 = 12;
 var a4 = [1, 2, 3]; // 方式一
 var list = [1, 2, 3]; // 方式二
 var a5 = ['1', '2'];
+var a6 = ['1', '2', 3, 4]; // 混合数组
 var a6 = ['1', '2', 3, 4]; // 混合数组
 // 元组 Tuple:  元组类型允许表示一个已知元素数量和类型的数组，各元素的类型不必相同。
 var myTuple;
@@ -101,9 +104,63 @@ var defineObj = {
         });
     }
 };
-defineObj.sayName();
+typeof defineObj.sayName === 'function' && defineObj.sayName();
 var a = {
     name: '111',
     // url:'www.baidu.com'
 };
 console.log(a);
+var addd = {};
+var obj = {
+    create: function (attrs) {
+    }
+};
+var persons = [];
+var addPerson = function (user) {
+    persons.push(user);
+    return true;
+};
+// 将obj2的合并到obj1中
+var fn = function (obj1, obj2) {
+    var copyObj = JSON.parse(JSON.stringify(obj1));
+    for (var x in obj2) {
+        copyObj[x] = obj2[x];
+    }
+    return copyObj;
+};
+fn({ a: '1', b: '2' }, { b: '333', c: '444' });
+var Ab = /** @class */ (function () {
+    function Ab() {
+    }
+    return Ab;
+}());
+var Abc = /** @class */ (function () {
+    function Abc() {
+    }
+    return Abc;
+}());
+function isFish(animal) {
+    // 强制类型转换 - <类型>值
+    // if (typeof (<Fish>animal).swim === 'function') {
+    //     return true;
+    // }
+    // 强制类型转换 - 值 as 类型 - 推荐使用as，因为泛型也是用<>
+    if (typeof animal.swim === 'function') {
+        return true;
+    }
+    return false;
+}
+// 强制类型转换 end-----------
+// ECMAScript 的内置对象
+var b = new Boolean(1);
+var e = new Error('Error occurred');
+var d = new Date();
+var r = /[a-z]/;
+// DOM 和 BOM 的内置对象
+if (typeof window !== 'undefined') {
+    var body = document.body;
+    var allDiv = document.querySelectorAll('div');
+    document.addEventListener('click', function (e) {
+        // Do something
+    });
+}

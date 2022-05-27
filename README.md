@@ -31,7 +31,7 @@ abstract只能放在抽象类里面
 // 1.重载-方法名称相同，参数不同，返回值可以不一样
 
     // ts中的函数重载-同样的函数传入不同的参数执行不同的功能---感觉没啥用，ts的函数重载比较鸡肋，最终函数逻辑的实现还是在一个函数体内去判断它的参数类型，然后做相应的操作
-    // java中的不一样,java直接走参数类型对于的方法
+    // java中的不一样,java直接走参数类型对应的方法
     function getinfo(name: string): string;
     function getinfo(name: string, age: number): string;
     function getinfo(name: any, age?: any): any {
@@ -118,4 +118,44 @@ class myClass<T>{
     defaultName!: T; // 不用!会报错，ts2.7+版本都需要对属性进行 ”确定分配断言“
     add!:(x: T, y: T)=>T
 }
+```
+
+## 接口
+```typescript
+// 接口 interface
+// 作用1：约束对象形状 -- 对象必须和定义的接口保持一致
+// 作用2：结合类实现
+interface Point {
+    label: string;
+    col?: string; // 可选属性
+    readonly x: number; // 只读属性,属性只能在对象刚刚创建的时候修改其值
+    [propName: string]: any; // 动态的其他属性都可以 - 【一旦定义了任意属性，那么确定属性和可选属性的类型都必须是它的类型的子集】
+}
+
+// 函数类型
+interface SearchFunc {
+    (source: string, subString: string): boolean; // （参数）:函数返回值类型
+}
+
+// 接口也可以用来描述数组：
+interface NumberArray {
+    [index: number]: number;
+}
+let fibonacci: NumberArray = [1, 1, 2, 3, 5];
+/*
+虽然接口也可以用来描述数组，但是我们一般不会这么做，因为这种方式比前两种方式复杂多了。
+除非是用来表示类数组
+*/
+function sum() {
+    let args: {
+        [index: number]: number;
+        length: number;
+        callee: Function;
+    } = arguments; // 比如这个arguments
+}
+// 但是常用的类数组都有自己的接口定义，如 IArguments, NodeList, HTMLCollection
+function sum() {
+    let args: IArguments = arguments;
+}
+
 ```

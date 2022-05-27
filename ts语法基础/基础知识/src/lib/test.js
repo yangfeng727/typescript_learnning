@@ -1,10 +1,19 @@
-"use strict";
-Object.defineProperty(exports, "__esModule", { value: true });
+
 var name = '张三';
 var age = 12;
 var sex = '男';
-exports.default = {
-    name: name,
-    age: age,
-    sex: sex
+var myFN=function(arg){
+    console.log('自定义声明文件：', arg)
+}
+// export default {
+//     name,
+//     age,
+//     sex,
+//     myFN
+// };
+module.exports ={
+    name,
+    age,
+    sex,
+    myFN
 };

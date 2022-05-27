@@ -1,7 +1,8 @@
 // 1. es6直接写ts里面
 import testModule from './src/lib/test'
 console.log(`姓名:${testModule.name} 年龄:${testModule.age} 性别:${testModule.sex}`)
-
+testModule.myFN('引入第三方包并自定义声明文件')
+debugger
 // 2.第三方包js文件写声明文件
 import myModule from './src/lib/myModule'
 // let ob = myModule as any
@@ -60,6 +61,7 @@ var a4: number[] = [1, 2, 3] // 方式一
 var list: Array<number> = [1, 2, 3]; // 方式二
 var a5: string[] = ['1', '2']
 var a6: (string | number)[] = ['1', '2', 3, 4] // 混合数组
+var a6: Array<string | number> = ['1', '2', 3, 4] // 混合数组
 // 元组 Tuple:  元组类型允许表示一个已知元素数量和类型的数组，各元素的类型不必相同。
 var myTuple: [string, number];
 myTuple = ['abc', 3]
@@ -70,7 +72,7 @@ tom.push('dddd') // 添加越界的元素时，它的类型会被限制为元组
 
 // 枚举
 enum Color { Red = 1, Green, Blue }
-var mc: Color = Color.Green
+var mc: number = Color.Green
 var mcName: string = Color[2] // 注意，这里取的是名称，string类型
 console.log(mc, mcName)
 // bject表示非原始类型，也就是除number，string，boolean，symbol，null或undefined之外的类型
@@ -99,7 +101,7 @@ interface Point {
     label: string;
     col?: string; // 可选属性
     readonly x: number; // 只读属性,属性只能在对象刚刚创建的时候修改其值
-    [propName: string]: any; // 动态的其他属性都可以
+    [propName: string]: any; // 动态的其他属性都可以 - 一旦定义了任意属性，那么确定属性和可选属性的类型都必须是它的类型的子集
 }
 
 let myPont: Point = { label: 'abc', x: 5 }
@@ -110,7 +112,7 @@ interface SearchFunc {
     (source: string, subString: string): boolean; // （参数）:函数返回值类型
 }
 let mySearch: SearchFunc;
-mySearch = function (arg1: string, arg2: string) { // 函数的参数名不需要与接口里定义的名字相匹配
+mySearch = function (arg1, arg2) { // 函数的参数名不需要与接口里定义的名字相匹配
     let result = arg1.search(arg2);
     return result > -1;
 }
@@ -126,7 +128,8 @@ afn(1)
 // ts定义对象，需要先定义接口
 interface myObj {
     name: string,
-    [propName: string]: any
+    [propName: string]: string | Function
+    // sayName?:Function
 }
 let defineObj: myObj = {
     name: '张三',
@@ -136,7 +139,7 @@ let defineObj: myObj = {
         })
     }
 }
-defineObj.sayName()
+typeof defineObj.sayName === 'function' && defineObj.sayName()
 
 
 // 使用&符号合并多个对象属性
@@ -217,6 +220,45 @@ class Abc{
 // }
 
 // 类可以实现多个接口
-// class cChild implements IUser,Point{ // 报错
+// class cChild implements IUser,Point{
 
 // }
+
+
+// 强制类型转换 start-----------
+interface Cat {
+    name: string;
+    run(): void;
+}
+interface Fish {
+    name: string;
+    swim(): void;
+}
+
+function isFish(animal: Cat | Fish) {
+    // 强制类型转换 - <类型>值
+    // if (typeof (<Fish>animal).swim === 'function') {
+    //     return true;
+    // }
+    // 强制类型转换 - 值 as 类型 - 推荐使用as，因为泛型也是用<>
+    if (typeof (animal as Fish).swim === 'function') {
+        return true;
+    }
+    return false;
+}
+// 强制类型转换 end-----------
+
+// ECMAScript 的内置对象
+let b: Boolean = new Boolean(1);
+let e: Error = new Error('Error occurred');
+let d: Date = new Date();
+let r: RegExp = /[a-z]/;
+
+// DOM 和 BOM 的内置对象
+if(typeof window !== 'undefined'){
+    let body: HTMLElement = document.body;
+    let allDiv: NodeList = document.querySelectorAll('div');
+    document.addEventListener('click', function(e: MouseEvent) {
+      // Do something
+    });
+}
