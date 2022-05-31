@@ -16,7 +16,7 @@ console.log('---------- 1.类装饰器---------')
 // 1.1 普通装饰器（无法传参）
 function logClass(params: any) {
     console.log(params)
-    params.prototype.apiUrl = 'abc'
+    params.prototype.apiUrl = 'http://localhost:8080/'
 }
 
 @logClass
@@ -50,11 +50,16 @@ console.log(b.apiUrl)
 // 1.3 使用装饰器更改类里面的构造函数、属性、方法
 
 function dFn(target: any) {
+
     return class extends target { // 固定写法
-        name: any = 'dddddd'
+        name!: string; // 这里必须要把之前类的属性都列出来
+        name2: string = '这是新增的属性';
+        constructor(n: string){
+            super(n);
+        }
 
         say(): void {
-            console.log(this.name + ' say from derector')
+            console.log(this.name + ' say from derector', this.name2) // log: 张三 say from derector 这是新增的属性
         }
     }
 }

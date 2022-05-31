@@ -38,7 +38,7 @@ console.log('---------- 1.类装饰器---------');
 // 1.1 普通装饰器（无法传参）
 function logClass(params) {
     console.log(params);
-    params.prototype.apiUrl = 'abc';
+    params.prototype.apiUrl = 'http://localhost:8080/';
 }
 var httpClass = /** @class */ (function () {
     function httpClass() {
@@ -72,13 +72,13 @@ console.log(b.apiUrl);
 function dFn(target) {
     return /** @class */ (function (_super) {
         __extends(class_1, _super);
-        function class_1() {
-            var _this = _super !== null && _super.apply(this, arguments) || this;
-            _this.name = 'dddddd';
+        function class_1(n) {
+            var _this = _super.call(this, n) || this;
+            _this.name2 = '这是新增的属性';
             return _this;
         }
         class_1.prototype.say = function () {
-            console.log(this.name + ' say from derector');
+            console.log(this.name + ' say from derector', this.name2); // log: 张三 say from derector 这是新增的属性
         };
         return class_1;
     }(target));

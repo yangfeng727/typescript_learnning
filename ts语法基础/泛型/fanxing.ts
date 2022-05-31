@@ -30,15 +30,30 @@ class Web extends person {
     constructor(n: string) {
         super(n)
     }
+    run() {
+        return `${this.name} ----在运动` // 当前类中调用属性
+    }
     work() {
         return `${this.name}在工作` // 子类中使用父类的属性-若name为private将不可调用
     }
 }
 
-let c_persion = new Web('张三')
+let c_persion:Web = new Web('张三')
 console.log(c_persion.run())
 console.log(c_persion.work())
 
+/*
+java多态
+多态的形式：具体类多态、抽象类多态、接口多态
+多态的前提和体现
+1.有继承/实现关系
+2.有方法重写
+3.有父类引用指向子类对象
+总结：编译看左边，运行看右边。和直接new 父类的区别在于使用的是子类重写后的方法
+*/
+let cc2:person = new Web('张三2')
+console.log(cc2.run())
+// console.log(cc2.work()) // error: 类型“person”上不存在属性“work”
 
 
   // 定义父类
@@ -240,8 +255,8 @@ console.log('-------接口扩展，接口可以继承接口 end------')
 可以支持不特定的数据类型，要求传入的类型和返回的类型和定义的一致，具有约束性
 */
 
-// 1.泛型函数
-function tFn<T>(value: T): T {
+// 1.泛型函数,这里设置了泛型默认值为string
+function tFn<T=string>(value: T): T {
     return value
 }
 tFn(1)
@@ -257,7 +272,7 @@ class tClass<T>{
     }
 
     min(): T {
-        let minVal = this.list[0]
+        let minVal:T = this.list[0]
         for (let i = 0; i < this.list.length; i++) {
             if (minVal > this.list[i]) {
                 minVal = this.list[i]
@@ -293,7 +308,7 @@ let interface_tFn:configFn = <T>(val1:T,val2:T):T=>{
 console.log('定义函数泛型接口',interface_tFn('a','b'))
 console.log('定义函数泛型接口',interface_tFn(1,2))
 
-// 3.2定义函数泛型接口另外一种方式
+// 3.2定义函数泛型接口另外一种方式,进一步，我们可以把泛型参数提前到接口名上
 interface configFn2<T>{
     (val1:T):T;
 }
@@ -464,7 +479,7 @@ function fxLength<T extends IhasLength>(val:T):number{ // 定义了一个泛型�
 }
 fxLength([1,2,3])
 
-// 6.2多个类型参数之间也可以互相约束：
+// 6.2多个类型参数之间也可以互相约束：T extends U表示T要有U的结构
 function copyFields<T extends U, U>(target: T, source: U): T {
     for (let id in source) {
         target[id] = (<T>source)[id];

@@ -39,6 +39,9 @@ var Web = /** @class */ (function (_super) {
     function Web(n) {
         return _super.call(this, n) || this;
     }
+    Web.prototype.run = function () {
+        return this.name + " ----\u5728\u8FD0\u52A8"; // 当前类中调用属性
+    };
     Web.prototype.work = function () {
         return this.name + "\u5728\u5DE5\u4F5C"; // 子类中使用父类的属性-若name为private将不可调用
     };
@@ -47,6 +50,18 @@ var Web = /** @class */ (function (_super) {
 var c_persion = new Web('张三');
 console.log(c_persion.run());
 console.log(c_persion.work());
+/*
+java多态
+多态的形式：具体类多态、抽象类多态、接口多态
+多态的前提和体现
+1.有继承/实现关系
+2.有方法重写
+3.有父类引用指向子类对象
+总结：编译看左边，运行看右边。和直接new 父类的区别在于使用的是子类重写后的方法
+*/
+var cc2 = new Web('张三2');
+console.log(cc2.run());
+// console.log(cc2.work()) // error: 类型“person”上不存在属性“work”
 // 定义父类
 var Parent = /** @class */ (function () {
     function Parent() {
@@ -79,6 +94,7 @@ c1.name = '更改值类型属性';
 c1.colors.push('green');
 Parent.proArr.push(999);
 console.log('Parent.proArr:', Parent.proArr);
+// console.log('不知道父类的时候可根据原型链找父类:',c2.__proto__.__proto__.constructor.proArr)
 console.log('---c1:', c1, '---c1.name:', c1.name, '---c1.colors:', c1.colors);
 console.log('---c2:', c2, '---c2.name:', c2.name, '---c2.colors:', c2.colors);
 // 
