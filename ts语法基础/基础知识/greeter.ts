@@ -1,12 +1,12 @@
 // 1. es6直接写ts里面
-import testModule from './src/lib/test'
-console.log(`姓名:${testModule.name} 年龄:${testModule.age} 性别:${testModule.sex}`)
-testModule.myFN('引入第三方包并自定义声明文件')
-debugger
-// 2.第三方包js文件写声明文件
-import myModule from './src/lib/myModule'
-// let ob = myModule as any
-console.log(`姓名:${myModule.name} 年龄:${myModule.age} 性别:${myModule.sex}`)
+// import testModule from './src/lib/test'
+// console.log(`姓名:${testModule.name} 年龄:${testModule.age} 性别:${testModule.sex}`)
+// testModule.myFN('引入第三方包并自定义声明文件')
+
+// // 2.第三方包js文件写声明文件
+// import myModule from './src/lib/myModule'
+// // let ob = myModule as any
+// console.log(`姓名:${myModule.name} 年龄:${myModule.age} 性别:${myModule.sex}`)
 
 // import moduleLib from './src/lib/myModule.js';
 // moduleLib.doSomething();
@@ -67,7 +67,7 @@ var myTuple: [string, number];
 myTuple = ['abc', 3]
 // myTuple[2] = 111 --> 错误，定义元组时长度固定了
 // 元组
-let tom: [string, number] = ['sss', 4] // 元组类型的变量进行初始化或者赋值的时候，需要提供所有元组类型中指定的项
+let tom: [string, number] = ['sss',4] // 元组类型的变量进行初始化或者赋值的时候，需要提供所有元组类型中指定的项
 tom.push('dddd') // 添加越界的元素时，它的类型会被限制为元组中每个类型的联合类型
 
 // 枚举
@@ -147,7 +147,7 @@ type options = {name:string} & {url?:string}
 
 let a:options = {
     name:'111',
-    // url:'www.baidu.com'
+    url:'www.baidu.com'
 }
 
 console.log(a)
@@ -180,7 +180,7 @@ interface IUser{
     name:string;
 }
 
-interface IfAddPerson<T extends Object>{
+interface IfAddPerson<T extends Object>{ // 函数式泛型接口，参数是对象
     (arg:T):boolean;
 }
 
@@ -192,7 +192,7 @@ let addPerson:IfAddPerson<IUser> = function(user){
 
 
 interface Iobj{
-    [index:string]:any
+    [index:string]:any // 声明了一个对象接口，属性string，值any类型
 }
 // 将obj2的合并到obj1中
 let fn = function(obj1:Iobj,obj2:Iobj){

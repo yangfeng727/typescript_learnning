@@ -213,7 +213,7 @@ console.log('-------接口扩展，接口可以继承接口 end------');
 泛型，通俗的理解，泛型就是解决 类 接口 方法的复用性，以及对不特定数据类型的支持
 可以支持不特定的数据类型，要求传入的类型和返回的类型和定义的一致，具有约束性
 */
-// 1.泛型函数
+// 1.泛型函数,这里设置了泛型默认值为string
 function tFn(value) {
     return value;
 }
@@ -362,7 +362,7 @@ function fxLength(val) {
     return val.length;
 }
 fxLength([1, 2, 3]);
-// 6.2多个类型参数之间也可以互相约束：
+// 6.2多个类型参数之间也可以互相约束：T extends U表示T要有U的结构
 function copyFields(target, source) {
     for (var id in source) {
         target[id] = source[id];

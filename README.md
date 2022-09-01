@@ -107,6 +107,34 @@ return result
 let obj = test({a:'1'},{b:'22'})
 console.log(obj,5555) // {a:'1',b:'22'}
 
+
+```
+
+## 联合类型和交叉类型
+``` typescript
+// 联合类型 |
+// 指多个类型的合并类型，任选其一
+
+// 基础类型联合
+let a: string | number;
+a = 1; //ok 
+a= "a"//ok
+
+// 交叉类型 &
+// 多种类型的集合，联合对象将具有所联合类型的所有成员
+interface People {
+  age: number,
+  height： number
+}
+interface Man{
+  sex: string
+}
+const lilei = (man: People & Man) => { // 具有所有成员
+  console.log(man.age)
+  console.log(man.height)
+  console.log(man.sex)
+}
+lilei({age: 18,height: 180,sex: 'male'});
 ```
 
 ## 确定分配断言:ts2.7+版本不初始化会报错 “初始化表达式，且未在构造函数中明确赋值”

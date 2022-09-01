@@ -1,17 +1,12 @@
 "use strict";
-var __importDefault = (this && this.__importDefault) || function (mod) {
-    return (mod && mod.__esModule) ? mod : { "default": mod };
-};
-Object.defineProperty(exports, "__esModule", { value: true });
 // 1. es6直接写ts里面
-var test_1 = __importDefault(require("./src/lib/test"));
-console.log("\u59D3\u540D:" + test_1.default.name + " \u5E74\u9F84:" + test_1.default.age + " \u6027\u522B:" + test_1.default.sex);
-test_1.default.myFN('引入第三方包并自定义声明文件');
-debugger;
-// 2.第三方包js文件写声明文件
-var myModule_1 = __importDefault(require("./src/lib/myModule"));
-// let ob = myModule as any
-console.log("\u59D3\u540D:" + myModule_1.default.name + " \u5E74\u9F84:" + myModule_1.default.age + " \u6027\u522B:" + myModule_1.default.sex);
+// import testModule from './src/lib/test'
+// console.log(`姓名:${testModule.name} 年龄:${testModule.age} 性别:${testModule.sex}`)
+// testModule.myFN('引入第三方包并自定义声明文件')
+// // 2.第三方包js文件写声明文件
+// import myModule from './src/lib/myModule'
+// // let ob = myModule as any
+// console.log(`姓名:${myModule.name} 年龄:${myModule.age} 性别:${myModule.sex}`)
 // import moduleLib from './src/lib/myModule.js';
 // moduleLib.doSomething();
 // 声明文件 
@@ -107,7 +102,7 @@ var defineObj = {
 typeof defineObj.sayName === 'function' && defineObj.sayName();
 var a = {
     name: '111',
-    // url:'www.baidu.com'
+    url: 'www.baidu.com'
 };
 console.log(a);
 var addd = {};

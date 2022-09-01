@@ -196,3 +196,10 @@ getKey({name:'张三',age:12},'name')
 
 type ac = keyof Iperson // name | age | location
 let a123:ac = 'location'
+
+
+
+interface Izip {name: '', age: 12, class: 1}
+type ant = keyof Izip // ant=name | age | calss
+
+let test:ant = 'name'

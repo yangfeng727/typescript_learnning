@@ -342,7 +342,7 @@ class myDataBase<T>{
 
 // 2.定义一个与数据库表结构进行映射的类
 class User{ // 与User表映射的类
-    username:string | undefined; // 定义联合类型将undefined加上，不报错
+    username!:string; // 定义联合类型将undefined加上，不报错,ts2.7+版本也可以用确定分配断言!
     password:string | number | undefined; // 定义联合类型将undefined加上，不报错
 }
 
