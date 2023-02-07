@@ -203,3 +203,17 @@ interface Izip {name: '', age: 12, class: 1}
 type ant = keyof Izip // ant=name | age | calss
 
 let test:ant = 'name'
+
+interface People {
+    age:number,
+    height:number
+  }
+  interface Man{
+    sex: string
+  }
+  const lilei = (man: People & Man) => { // 具有所有成员
+    console.log(man.age)
+    console.log(man.height)
+    console.log(man.sex)
+  }
+  lilei({age: 18,height: 180,sex: 'male'});

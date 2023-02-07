@@ -121,7 +121,7 @@ a = 1; //ok
 a= "a"//ok
 
 // 交叉类型 &
-// 多种类型的集合，联合对象将具有所联合类型的所有成员
+// 多种类型的集合，联合对象将具有所联合类型的所有成员,结构必须是&起来的，属性不能少
 interface People {
   age: number,
   height： number
@@ -186,4 +186,10 @@ function sum() {
     let args: IArguments = arguments;
 }
 
+```
+
+## [在 TypeScript 中使用类型守卫的 5 种方式](https://cloud.tencent.com/developer/article/2061124)
+比如vue3.0中 isRef()工具函数就可以被用作类型守卫 - 是带有谓词的自定义类型守卫
+```typescript
+function isRef<T>(r: Ref<T> | unknown): r is Ref<T>
 ```

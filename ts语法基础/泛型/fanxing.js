@@ -16,10 +16,10 @@ var __extends = (this && this.__extends) || (function () {
 })();
 function getinfo(name, age) {
     if (typeof age === 'number') {
-        return "\u6211\u662F\uFF1A" + name + " \u5E74\u9F84\u662F\uFF1A" + age;
+        return "\u6211\u662F\uFF1A".concat(name, " \u5E74\u9F84\u662F\uFF1A").concat(age);
     }
     else {
-        return "\u6211\u662F\uFF1A" + name;
+        return "\u6211\u662F\uFF1A".concat(name);
     }
 }
 getinfo('abc');
@@ -30,7 +30,7 @@ var person = /** @class */ (function () {
         this.name = n;
     }
     person.prototype.run = function () {
-        return this.name + "\u5728\u8FD0\u52A8"; // 当前类中调用属性
+        return "".concat(this.name, "\u5728\u8FD0\u52A8"); // 当前类中调用属性
     };
     return person;
 }());
@@ -40,10 +40,10 @@ var Web = /** @class */ (function (_super) {
         return _super.call(this, n) || this;
     }
     Web.prototype.run = function () {
-        return this.name + " ----\u5728\u8FD0\u52A8"; // 当前类中调用属性
+        return "".concat(this.name, " ----\u5728\u8FD0\u52A8"); // 当前类中调用属性
     };
     Web.prototype.work = function () {
-        return this.name + "\u5728\u5DE5\u4F5C"; // 子类中使用父类的属性-若name为private将不可调用
+        return "".concat(this.name, "\u5728\u5DE5\u4F5C"); // 子类中使用父类的属性-若name为private将不可调用
     };
     return Web;
 }(person));
@@ -128,7 +128,7 @@ var Animal = /** @class */ (function () {
         this.name = name;
     }
     Animal.prototype.run = function () {
-        return this.name + "\u5728\u5954\u8DD1";
+        return "".concat(this.name, "\u5728\u5954\u8DD1");
     };
     return Animal;
 }());
@@ -138,7 +138,7 @@ var dog = /** @class */ (function (_super) {
         return _super.call(this, name) || this;
     }
     dog.prototype.eat = function () {
-        return this.name + "\u7231\u5403\u9AA8\u5934";
+        return "".concat(this.name, "\u7231\u5403\u9AA8\u5934");
     };
     return dog;
 }(Animal));
@@ -148,7 +148,7 @@ var cat = /** @class */ (function (_super) {
         return _super.call(this, name) || this;
     }
     cat.prototype.eat = function () {
-        return this.name + "\u7231\u5403\u9C7C";
+        return "".concat(this.name, "\u7231\u5403\u9C7C");
     };
     return cat;
 }(Animal));

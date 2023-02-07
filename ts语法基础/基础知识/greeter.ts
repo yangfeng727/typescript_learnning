@@ -107,12 +107,11 @@ interface Point {
 let myPont: Point = { label: 'abc', x: 5 }
 // myPont.x = 33333 // error
 
-// 函数类型
+// 函数接口
 interface SearchFunc {
     (source: string, subString: string): boolean; // （参数）:函数返回值类型
 }
-let mySearch: SearchFunc;
-mySearch = function (arg1, arg2) { // 函数的参数名不需要与接口里定义的名字相匹配
+let mySearch: SearchFunc = function (arg1, arg2) { // 函数的参数名不需要与接口里定义的名字相匹配
     let result = arg1.search(arg2);
     return result > -1;
 }
@@ -142,8 +141,8 @@ let defineObj: myObj = {
 typeof defineObj.sayName === 'function' && defineObj.sayName()
 
 
-// 使用&符号合并多个对象属性
-type options = {name:string} & {url?:string}
+// 使用&符号合并多个对象属性 - 交叉类型，结果必须是&结合后的类型
+type options = {name:string} & {url:string}
 
 let a:options = {
     name:'111',
