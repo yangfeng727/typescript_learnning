@@ -261,3 +261,10 @@ if(typeof window !== 'undefined'){
       // Do something
     });
 }
+
+
+// 非空断言 -- 
+const fnFK = (arg: string | null | undefined) => {
+    let a: string = arg!
+    console.log(a, 333)
+}
