@@ -3,6 +3,8 @@
 // console.log(`姓名:${testModule.name} 年龄:${testModule.age} 性别:${testModule.sex}`)
 // testModule.myFN('引入第三方包并自定义声明文件')
 
+// import { type } from "jquery";
+
 // // 2.第三方包js文件写声明文件
 // import myModule from './src/lib/myModule'
 // // let ob = myModule as any
@@ -267,4 +269,97 @@ if(typeof window !== 'undefined'){
 const fnFK = (arg: string | null | undefined) => {
     let a: string = arg!
     console.log(a, 333)
+}
+
+
+// ---------- ts中的Promise ----------
+interface promiseItf{
+    message:string;
+    data:{a:number,b:number}[],
+    code:number
+}
+let p:Promise<promiseItf> = new Promise((resolve,reject)=>{
+    resolve({
+        message:'操作成功',
+        data:[{a:1,b:2}],
+        code:0
+    })
+})
+
+p.then(res=>{
+    if(+res.code === 0){
+        let arr = res.data.map(item=>item.a)
+    }
+})
+
+
+
+// typeof【获取类型】和ReturnType【获取函数返回值类型】
+{
+    class A {
+        A1() {
+          return this
+        }
+        A2() {
+          return this
+        }
+      }
+      class B extends A {
+        B1() {
+          return this
+        }
+        B2() {
+          return this
+        }
+      }
+      const b = new B()
+      const a = new A()
+      b.A1().B1() // 不报错
+    //   a.A1().B1() // 报错
+      type M1 = ReturnType<typeof b.A1> // B
+      type M2 = ReturnType<typeof a.A1> // A
+      type aa = typeof b.A1
+}
+
+
+abstract class People {
+    public name!: string;
+    public abstract info(): void;
+    public eat() {
+      console.log("人类-吃饭");
+    }
+  }
+  
+
+{
+  // in 用法
+  type ky = string | number
+  type objty = {
+    // [x: string]: string;
+    // [x: number]: string;
+    [x in ky]:string; // 这里 in 后面跟的具体类型， [x: string]: string; [x: number]: string;
+  }
+  let obj3:objty = {
+    aa:'xxx',
+    1:'xxx',
+  }
+
+
+  interface itf {
+    a:string,
+    b:number
+  }
+  // type Partial<T> = { [P in keyof T]?: T[P] | undefined; }
+  let cb:Partial<itf> = {}
+
+  type ls = {[P in keyof itf]:number} // 注意这里的keyof itf是获取的常量 'a'|'b'
+}
+
+
+{
+    // infer用法，
+    type ObjType<T> = T extends {name:infer N,age:infer A}?[N,A]:null;
+    let obj1:ObjType<{name:string,age:number}> = ['张三',20] // 格式满足则则N为string，A为number，最终格式为  [string, number]
+    let obj2:ObjType<number> = null // 不匹配则是定义的null类型
+    let obj3:ObjType<{name:'李四',age:18}> = ['李四',18] // 常量类型
 }

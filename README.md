@@ -1,5 +1,19 @@
 # [一篇让你完全够用TS(TypeScript)的指南](https://zhuanlan.zhihu.com/p/505175155)
 
+# tsc命令
+```
+tsc -p tsconfig.json --watch // 监听文件变动并生成js文件，相当于vs的文件运行任务
+```
+# ts中let和const的区别
+let定义的值，类型是值的类型，而const定义的值，类型就是值
+``` typescript
+let num = 1 // num类型是number
+const num = 1 // num 类型是1
+```
+# [any 和 unknown 区别](https://www.jianshu.com/p/7c5592bc67ae)
+
+# [TypeScript之Object、object、{ }的区别](https://www.jianshu.com/p/8d7cfc4b912c)
+
 # typescript_learnning
 ``` typescript
 /*
@@ -117,13 +131,17 @@ console.log(obj,5555) // {a:'1',b:'22'}
 // 联合类型 |
 // 指多个类型的合并类型，任选其一
 
-// 基础类型联合
+// 1.1基础类型联合
 let a: string | number;
 a = 1; //ok 
 a= "a"//ok
+// 1.2常量类型联合 - 前面的变量冒号后面是类型！
+let a:1|'2' = 1
+// 1.3对象联合-代表要么有这个，有么有那个，【注意：可以都存在，都在的时候类似&】
+let a:{a:'1'}|{b:2} = {a:'1',b:2}
 
 // 交叉类型 &
-// 多种类型的集合，联合对象将具有所联合类型的所有成员,结构必须是&起来的，属性不能少
+// 多种类型的集合，联合对象将具有所联合类型的所有成员,结构必须是&起来的，属性不能少【一句话就是全都要有】
 interface People {
   age: number,
   height： number
@@ -137,6 +155,20 @@ const lilei = (man: People & Man) => { // 具有所有成员
   console.log(man.sex)
 }
 lilei({age: 18,height: 180,sex: 'male'});
+
+
+// 联合交叉类型，也就是两个一起用 注意：&优先级大于|，同（js && 优先级大于 || ，如1||2&&3结果是1）
+let obj:{name:string} & {age:string} | {name:number} & {age:number} 
+// 这里相当于 let obj:({name:string} & {age:string}) | ( {name:number} & {age:number} )
+obj={
+    name:'张三',
+    age:'12'
+}
+obj={
+    name:1,
+    age:2
+}
+
 ```
 
 ## 确定分配断言:ts2.7+版本不初始化会报错 “初始化表达式，且未在构造函数中明确赋值”
@@ -288,6 +320,19 @@ function isRef<T>(r: Ref<T> | unknown): r is Ref<T>
         [p in name]:any
     }
 
+    // in 定义对象 
+    type ky = string | number
+    type objty = {
+        // [x: string]: string;
+        // [x: number]: string;
+        [x in ky]:string; // 这里 in 后面跟的具体类型， [x: string]: string; [x: number]: string;
+    }
+    let obj3:objty = {
+        aa:'xxx',
+        1:'xxx',
+    }
+
+
     // 5.Partial<T> 作用：将所有属性变为可选的 ?
     interface Props {
         name: string,
@@ -423,8 +468,19 @@ function isRef<T>(r: Ref<T> | unknown): r is Ref<T>
     type Props2 = Parameters<any>; // unknown[]
     type Props3 = Parameters<never>; // never
 
+    // 17.infer 可以是使用为条件语句，可以用 infer 声明一个类型变量并且对它进行使用
+    type ObjType<T> = T extends {name:infer N,age:infer A}?[N,A]:null;
+    let obj1:ObjType<{name:string,age:number}> = ['张三',20] // 格式满足则则N为string，A为number，最终格式为  [string, number]
+    let obj2:ObjType<number> = null // 不匹配则是定义的null类型
+    let obj3:ObjType<{name:'李四',age:18}> = ['李四',18] // 常量类型
 
     // Omit 与 Pick 相反， Partial 与 Required 相反 ， Exclude 与 Extra 相反
 
 
 ```
+
+# ts中window的类型是Window
+
+# [详解Typescript里的This](https://zhuanlan.zhihu.com/p/104565681)
+
+# [TypeScript Typeof运算符的5个实用技巧详解](https://www.jb51.net/article/265723.htm)
