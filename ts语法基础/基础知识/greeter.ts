@@ -359,7 +359,7 @@ abstract class People {
 {
     // infer用法，
     type ObjType<T> = T extends {name:infer N,age:infer A}?[N,A]:null;
-    let obj1:ObjType<{name:string,age:number}> = ['张三',20] // 格式满足则则N为string，A为number，最终格式为  [string, number]
+    let obj1:ObjType<{name:string,age:number}> = ['张三',20] // 格式满足，则N原地获取为string，A为number，最终格式为  [string, number]
     let obj2:ObjType<number> = null // 不匹配则是定义的null类型
     let obj3:ObjType<{name:'李四',age:18}> = ['李四',18] // 常量类型
 }

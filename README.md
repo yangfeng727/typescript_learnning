@@ -468,7 +468,7 @@ function isRef<T>(r: Ref<T> | unknown): r is Ref<T>
     type Props2 = Parameters<any>; // unknown[]
     type Props3 = Parameters<never>; // never
 
-    // 17.infer 可以是使用为条件语句，可以用 infer 声明一个类型变量并且对它进行使用
+    // 17.infer 类型推断，原地获取 可以是使用为条件语句，可以用 infer 声明一个类型变量并且对它进行使用
     type ObjType<T> = T extends {name:infer N,age:infer A}?[N,A]:null;
     let obj1:ObjType<{name:string,age:number}> = ['张三',20] // 格式满足则则N为string，A为number，最终格式为  [string, number]
     let obj2:ObjType<number> = null // 不匹配则是定义的null类型
