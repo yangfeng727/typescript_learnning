@@ -1,4 +1,3 @@
-"use strict";
 var afn = function (arg) {
     console.log('函数接口测试', arg);
 };
@@ -144,3 +143,10 @@ function getKey(obj, key) {
 }
 getKey({ name: '张三', age: 12 }, 'name');
 var a123 = 'location';
+var test = 'name';
+var lilei = function (man) {
+    console.log(man.age);
+    console.log(man.height);
+    console.log(man.sex);
+};
+lilei({ age: 18, height: 180, sex: 'male' });
